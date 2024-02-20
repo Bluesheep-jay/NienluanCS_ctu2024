@@ -1,7 +1,70 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./Header.css";
-function Header({ generateArrayBar, totalElements, setTotalElements, speed, setSpeed}) {
-  const [selectedAlgo, setSelectedAlgo] = useState("Selection Sort");
+import Algorithms from "../scripts/algorithms.js";
+import Animate from "../scripts/animation.js";
+import { stopAnimation, toggleAnimation } from "../scripts/animation.js";
+import $ from "jquery";
+import { resetPositionCss, disableInput } from "../scripts/headerBtn.js";
+
+function Header({
+  arrayBar,
+  setArrayBar,
+  totalElements,
+  setTotalElements,
+  speed,
+  setSpeed,
+}) {
+  const [selectedAlgo, setSelectedAlgo] = useState("Bubble Sort");
+
+  useEffect(() => {
+    generateArrayBar();
+  }, [totalElements]);
+
+  const generateArrayBar = () => {
+    resetPositionCss();
+    const newArray = Array.from({ length: totalElements }, () =>
+      randomInt(5, 500)
+    );
+    setArrayBar(newArray);
+  };
+
+  function randomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  /// RUNNNNNNN_BTN
+  const runAlgo = () => {
+    disableInput();
+    const algo = selectedAlgo;
+    const tmpArrayBar = arrayBar.slice();
+    const solution = solve(algo, tmpArrayBar);
+    if (solution) {
+      Animate(solution, speed, 0); // animation.js
+    }
+  };
+  const solve = (algo, tmpArrayBar) => {
+    switch (algo) {
+      case "Selection Sort": {
+        return Algorithms.select(tmpArrayBar);
+      }
+      // case "Insertion Sort": {
+      //   return Algorithms.comb(elements, order);
+      // }
+      case "Bubble Sort": {
+        return Algorithms.bubble(tmpArrayBar);
+      }
+      // case "Merge Sort": {
+      //   return Algorithms.insertion(elements, order);
+      // }
+      // case "Quick Sort": {
+      //   return Algorithms.selection(elements, order);
+      // }
+
+      default: {
+        return false;
+      }
+    }
+  };
 
   return (
     <div id="menu" className="flex justify-around bg-[#498562] h-24 py-3 ">
@@ -11,31 +74,32 @@ function Header({ generateArrayBar, totalElements, setTotalElements, speed, setS
           <input
             className="form-range "
             type="range"
+            step={1}
             min={1}
-            max={100}
+            max={5}
             value={speed}
             onChange={(e) => setSpeed(e.target.value)}
           />
-          <span className="text-white font-bold ">{speed}</span>
+          <span className="text-white font-bold ">x{speed}</span>
         </div>
-        <div className="slider w-full mt-3">
+        <div className="slider mt-3">
           <span>Element</span>
           <input
             className="form-range"
             type="range"
             min={5}
-            max={100}
+            max={50}
             value={totalElements}
             onChange={(e) => setTotalElements(e.target.value)}
           />
           <span className="text-white font-bold">{totalElements}</span>
         </div>
       </div>
-      <div>
+      <div className="selectAlgo">
         <select
           value={selectedAlgo}
           onChange={(e) => setSelectedAlgo(e.target.value)}
-          className="selectSort mx-1 rounded-lg"
+          className="selectSort selectSortHover mx-1 rounded-lg"
         >
           <option value="Selection Sort">Selection Sort</option>
           <option value="Insertion Sort">Insertion Sort</option>
@@ -45,9 +109,22 @@ function Header({ generateArrayBar, totalElements, setTotalElements, speed, setS
         </select>
       </div>
       <div id="buttons">
-        <button className="btn mx-1 w-20">Sort</button>
-        <button className="btn mx-1 w-20">Stop</button>
-        <button className="btn mx-1 w-20">Reset</button>
+        <button
+          id="sort-btn"
+          onClick={runAlgo}
+          className="btn"
+        >
+          Sort
+        </button>
+        <button
+          id="stop-btn"
+          className="btn disabled"
+          onClick={toggleAnimation}
+        >
+          Stop
+        </button>
+        <button className="btn btn-hover">Reset</button>
+        <button className="btn btn-hover">Restart</button>
       </div>
     </div>
   );

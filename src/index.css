@@ -6,3 +6,8 @@
 /* chỉnh bố cục  */
 
 
+.compared {
+    transition: background-color ease-in 0.1;
+    /* background: #67bfca; */
+    background:rgb(253, 97, 50);
+  }

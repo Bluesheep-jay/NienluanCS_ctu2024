@@ -2,17 +2,19 @@
 .btn {
   border-radius: 10px;
   border: 4px solid rgb(201, 201, 201);
-  padding: 0 10px;
+  padding: 0 5px;
+  margin: 0 2px;
+  min-width:  85px;
   height: 50px;
   font-size: 18px;
   font-weight: bold;
   font-family: inherit;
   background: #ffffff;
-  cursor: pointer;
-  transition: border-color 0.25s;
+  transition: border-color 0.3s;
 }
-.selectSort:hover,
-.btn:hover {
+
+.selectSortHover:hover,
+.btn-hover:hover {
   border-color: #f4f27e;
 }
 
@@ -47,7 +49,7 @@
 
 .slider input {
   -webkit-appearance: none;
-  width: 200px;
+  width: 180px;
   height: 15px;
   border-radius: 5px;
   background: white;
@@ -91,8 +93,23 @@
   cursor: pointer;
 }
 
+/* BTN-CSS */
 #buttons {
   overflow: hidden;
   display: flex;
   align-items: center;
+}
+
+button[disabled] {
+  background: #222;
+  color: #888;
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+
+.disabled{
+  background: #222;
+  color: #888;
+  opacity: 0.5;
+  cursor: not-allowed !important;
 }

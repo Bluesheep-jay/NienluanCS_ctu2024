@@ -4,7 +4,8 @@ import Algorithms from "../scripts/algorithms.js";
 import Animate from "../scripts/animation.js";
 import { stopAnimation, toggleAnimation } from "../scripts/animation.js";
 import $ from "jquery";
-import { resetPositionCss, disableInput } from "../scripts/headerBtn.js";
+import { resetPositionCss, generateArrayBar, disabledStopBtn,disabledResetBtn} from "../scripts/headerBtn.js";
+import { clearAnimation } from "../scripts/animation.js";
 
 function Header({
   arrayBar,
@@ -14,27 +15,22 @@ function Header({
   speed,
   setSpeed,
 }) {
-  const [selectedAlgo, setSelectedAlgo] = useState("Bubble Sort");
+  const [selectedAlgo, setSelectedAlgo] = useState("Selection Sort");
 
   useEffect(() => {
-    generateArrayBar();
+    generateArrayBar(totalElements, setArrayBar);
   }, [totalElements]);
 
-  const generateArrayBar = () => {
-    resetPositionCss();
-    const newArray = Array.from({ length: totalElements }, () =>
-      randomInt(5, 500)
-    );
-    setArrayBar(newArray);
-  };
 
-  function randomInt(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
+  function resetFunction() {
+    clearAnimation();
+    disabledResetBtn();
+    generateArrayBar(totalElements, setArrayBar);
+
   }
-
   /// RUNNNNNNN_BTN
   const runAlgo = () => {
-    disableInput();
+    disabledStopBtn();
     const algo = selectedAlgo;
     const tmpArrayBar = arrayBar.slice();
     const solution = solve(algo, tmpArrayBar);
@@ -45,7 +41,7 @@ function Header({
   const solve = (algo, tmpArrayBar) => {
     switch (algo) {
       case "Selection Sort": {
-        return Algorithms.select(tmpArrayBar);
+        return Algorithms.selection(tmpArrayBar);
       }
       // case "Insertion Sort": {
       //   return Algorithms.comb(elements, order);
@@ -123,7 +119,7 @@ function Header({
         >
           Stop
         </button>
-        <button className="btn btn-hover">Reset</button>
+        <button className="btn btn-hover" onClick={resetFunction}>Reset</button>
         <button className="btn btn-hover">Restart</button>
       </div>
     </div>

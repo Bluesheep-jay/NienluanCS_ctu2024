@@ -131,7 +131,7 @@
 import $ from "jquery";
 import { useRef, useEffect, useState } from "react";
 import { Frame } from "./algorithms";
-import { disableInput } from "./headerBtn";
+import { disabledStopBtn } from "./headerBtn";
 
 let TEMP_SOLUTION; 
 let SPEED;
@@ -190,22 +190,29 @@ export function toggleAnimation() {
   }
 }
 
+export function clearAnimation() {
+  animationPaused = false;
+  $(".bar").removeClass("compared");
+  for (let i = 0; i < ANIMATION_FRAMES.length; ++i) {
+    clearTimeout(ANIMATION_FRAMES[i]);
+  }
+}
+
 function pauseAnimation() {
   animationPaused = true;
   $(".bar").removeClass("compared");
-  console.log("lafn 2 >??");
   // Clear all remaining animation frames after the current frame
   for (let i = 0; i < ANIMATION_FRAMES.length; ++i) {
     clearTimeout(ANIMATION_FRAMES[i]);
   }
-  disableInput(false);
+  disabledStopBtn(false);
 }
 
 function resumeAnimation() {
   animationPaused = false;
   // Continue the animation from the current frame
   Animate(TEMP_SOLUTION, SPEED, currentFrameIndex);
-  disableInput();
+  disabledStopBtn();
 }
 
 let ANIMATION_FRAMES = [];
@@ -296,5 +303,5 @@ export function stopAnimation() {
     clearTimeout(ANIMATION_FRAMES[i]);
   }
   $(".bar").removeClass("compared");
-  disableInput(false);
+  disabledStopBtn(false);
 }

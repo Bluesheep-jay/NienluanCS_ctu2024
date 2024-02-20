@@ -54,6 +54,20 @@ export default class Algorithms {
   static selection(e) {
     let elements = e; // mảng truyền vào
     let solution = new Animation(); //để lưu trữ các bước sắp xếp.
-    let swapped = false;
+
+    for (let i = 0; i < elements.length - 1; i++) {
+      let min_idx = i;
+      for (let j = i + 1; j < elements.length; j++) {
+        solution.addFrame(new Frame([], [min_idx, j]));
+        if (elements[j] < elements[min_idx]) min_idx = j;
+      }
+      if (min_idx != i) {
+        solution.addFrame(new Frame([i, min_idx], [i, min_idx]));
+        const temp = elements[i];
+        elements[i] = elements[min_idx];
+        elements[min_idx] = temp;
+      }
+    }
+    return solution;
   }
 }

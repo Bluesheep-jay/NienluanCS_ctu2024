@@ -1,4 +1,6 @@
-import $ from 'jquery'
+import $ from "jquery";
+
+/// --- reset CSS(left) after runAlgo --- ///
 export function resetPositionCss() {
   let bars = document.getElementsByClassName("bar");
   Array.from(bars).forEach((bar) => {
@@ -7,23 +9,44 @@ export function resetPositionCss() {
   });
 }
 
-// function disableHandler(){
+/// --- Generate Array Bar --- ///
+function randomInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+export const generateArrayBar = (totalElements, setArrayBar) => {
+  resetPositionCss();
+  const newArray = Array.from({ length: totalElements }, () =>
+    randomInt(5, 500)
+  );
+  setArrayBar(newArray);
+};
 
-// }
-export function disableInput(what = true) {
-    $(".form-range").attr("disabled", what);
-    $(".selectSort").attr("disabled", what).removeClass("selectSortHover")
-    // $("#stop-btn").attr("disabled", true).addClass("btn-disabled").removeClass("btn-hover")
-    // $("#sort-btn").attr("disabled", false).removeClass("btn-disabled").addClass('btn-hover')
-    const sortBtn = document.getElementById("stop-btn")
-    sortBtn.innerHTML = "Resume"
+export function disabledStopBtn(what = true) {
+  const stopBtn = document.getElementById("stop-btn");
+  $(".form-range").attr("disabled", true);
+  $(".selectSort").attr("disabled", true).removeClass("selectSortHover");
+  $("#sort-btn").attr("disabled", true).removeClass("btn-hover");
+  stopBtn.innerHTML = "Resume";
 
-    if(what == true){ 
-    sortBtn.innerHTML = "Stop"
-        $("#stop-btn").attr("disabled", false).removeClass("disabled").addClass("btn-hover")
-        $("#sort-btn").attr("disabled", true).addClass("btn-disabled").removeClass('btn-hover')
-    }
-    
+  /// --when runAlgo everything is disabled except reset, restart, stop (btn)
+  if (what == true) {
+    stopBtn.innerHTML = "Stop";
+    $("#stop-btn")
+      .attr("disabled", false)
+      .removeClass("disabled")
+      .addClass("btn-hover");
+  } 
+  
+}
+
+export function disabledResetBtn() {
+  $(".form-range").attr("disabled", false);
+  $(".selectSort").attr("disabled", false).addClass("selectSortHover");
+  $("#sort-btn").attr("disabled", false).addClass("btn-hover");
+  const stopBtn = document.getElementById("stop-btn");
+  stopBtn.innerHTML = "Stop";
+  $("#stop-btn").attr("disabled", true);
+}
 //   $(".sort").attr("disabled", what);
 //   $(".slider-input").attr("disabled", what);
 //   $("select#algorithms").attr("disabled", what);
@@ -40,4 +63,3 @@ export function disableInput(what = true) {
 //   }
 
 //   $(".sort").addClass("green");
-}

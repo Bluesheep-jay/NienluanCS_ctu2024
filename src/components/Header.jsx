@@ -26,7 +26,12 @@ function Header({
     clearAnimation();
     disabledResetBtn();
     generateArrayBar(totalElements, setArrayBar);
+  }
 
+  function restartFunction() {
+    clearAnimation();
+    disabledResetBtn();
+    resetPositionCss();
   }
   /// RUNNNNNNN_BTN
   const runAlgo = () => {
@@ -120,7 +125,7 @@ function Header({
           Stop
         </button>
         <button className="btn btn-hover" onClick={resetFunction}>Reset</button>
-        <button className="btn btn-hover">Restart</button>
+        <button className="btn btn-hover" onClick={restartFunction}>Restart</button>
       </div>
     </div>
   );

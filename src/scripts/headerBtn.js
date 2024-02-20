@@ -24,42 +24,29 @@ export const generateArrayBar = (totalElements, setArrayBar) => {
 export function disabledStopBtn(what = true) {
   const stopBtn = document.getElementById("stop-btn");
   $(".form-range").attr("disabled", true);
-  $(".selectSort").attr("disabled", true).removeClass("selectSortHover");
-  $("#sort-btn").attr("disabled", true).removeClass("btn-hover");
+  $(".selectSort").attr("disabled", true).addClass("disabled").removeClass("selectSortHover")
+  $("#sort-btn").attr("disabled", true).removeClass("btn-hover")
   stopBtn.innerHTML = "Resume";
-
+  $("#stop-btn")
+      .attr("disabled", false)
+      .removeClass("disabled")
+      .addClass("btn-hover resumeColor")
   /// --when runAlgo everything is disabled except reset, restart, stop (btn)
   if (what == true) {
     stopBtn.innerHTML = "Stop";
     $("#stop-btn")
       .attr("disabled", false)
-      .removeClass("disabled")
+      .removeClass("disabled resumeColor")
       .addClass("btn-hover");
   } 
-  
 }
 
 export function disabledResetBtn() {
   $(".form-range").attr("disabled", false);
-  $(".selectSort").attr("disabled", false).addClass("selectSortHover");
+  $(".selectSort").attr("disabled", false).removeClass("disabled").addClass("selectSortHover")
   $("#sort-btn").attr("disabled", false).addClass("btn-hover");
   const stopBtn = document.getElementById("stop-btn");
   stopBtn.innerHTML = "Stop";
-  $("#stop-btn").attr("disabled", true);
+  $("#stop-btn").attr("disabled", true).removeClass("btn-hover resumeColor")
 }
-//   $(".sort").attr("disabled", what);
-//   $(".slider-input").attr("disabled", what);
-//   $("select#algorithms").attr("disabled", what);
-//   $("select#order").attr("disabled", what);
 
-//   // Swap colors
-//   $("#stop").attr("disabled", true).removeClass("green");
-
-//   if (what) {
-//     $(".sort").removeClass("green");
-//     $("#stop").attr("disabled", false).addClass("green");
-
-//     return;
-//   }
-
-//   $(".sort").addClass("green");

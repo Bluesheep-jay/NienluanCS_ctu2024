@@ -4,7 +4,12 @@ import Algorithms from "../scripts/algorithms.js";
 import Animate from "../scripts/animation.js";
 import { stopAnimation, toggleAnimation } from "../scripts/animation.js";
 import $ from "jquery";
-import { resetPositionCss, generateArrayBar, disabledStopBtn,disabledResetBtn} from "../scripts/headerBtn.js";
+import {
+  resetPositionCss,
+  generateArrayBar,
+  disabledStopBtn,
+  disabledResetBtn,
+} from "../scripts/headerBtn.js";
 import { clearAnimation } from "../scripts/animation.js";
 
 function Header({
@@ -20,7 +25,6 @@ function Header({
   useEffect(() => {
     generateArrayBar(totalElements, setArrayBar);
   }, [totalElements]);
-
 
   function resetFunction() {
     clearAnimation();
@@ -48,19 +52,18 @@ function Header({
       case "Selection Sort": {
         return Algorithms.selection(tmpArrayBar);
       }
-      // case "Insertion Sort": {
-      //   return Algorithms.comb(elements, order);
-      // }
+      case "Insertion Sort": {
+        return Algorithms.insertion(tmpArrayBar);
+      }
       case "Bubble Sort": {
         return Algorithms.bubble(tmpArrayBar);
       }
-      // case "Merge Sort": {
-      //   return Algorithms.insertion(elements, order);
-      // }
-      // case "Quick Sort": {
-      //   return Algorithms.selection(elements, order);
-      // }
-
+      case "Merge Sort": {
+        return Algorithms.insertion(tmpArrayBar);
+      }
+      case "Quick Sort": {
+        return Algorithms.selection(tmpArrayBar);
+      }
       default: {
         return false;
       }
@@ -110,11 +113,7 @@ function Header({
         </select>
       </div>
       <div id="buttons">
-        <button
-          id="sort-btn"
-          onClick={runAlgo}
-          className="btn"
-        >
+        <button id="sort-btn" onClick={runAlgo} className="btn">
           Sort
         </button>
         <button
@@ -124,8 +123,12 @@ function Header({
         >
           Stop
         </button>
-        <button className="btn btn-hover" onClick={resetFunction}>Reset</button>
-        <button className="btn btn-hover" onClick={restartFunction}>Restart</button>
+        <button className="btn btn-hover" onClick={resetFunction}>
+          Reset
+        </button>
+        <button className="btn btn-hover" onClick={restartFunction}>
+          Restart
+        </button>
       </div>
     </div>
   );

@@ -100,6 +100,9 @@
   align-items: center;
 }
 
+input[disabled] {
+  cursor: not-allowed !important;
+}
 button[disabled] {
   background: #222;
   color: #888;
@@ -112,4 +115,9 @@ button[disabled] {
   color: #888;
   opacity: 0.5;
   cursor: not-allowed !important;
+}
+
+.resumeColor{
+  background: #ffe95b;
+  /* background: #4caf50; */
 }

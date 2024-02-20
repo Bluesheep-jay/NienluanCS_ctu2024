@@ -21,7 +21,7 @@ function Bar({ arrayBar, totalElements }) {
     <div id="bar-container" className=" bg-white justify-center items-center">
       {arrayBar.map((bar, idx) => (
         <div
-          className="bar bg-[#417758]"
+          className="bar "
           key={idx}
           style={{
             width: `${widthBar}px`,

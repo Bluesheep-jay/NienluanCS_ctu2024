@@ -70,4 +70,27 @@ export default class Algorithms {
     }
     return solution;
   }
+
+  static insertion(e) {
+    let elements = e;
+    let solution = new Animation();
+
+    for (let i = 1; i < elements.length; ++i) {
+      let key = elements[i];
+      let j = i - 1;
+
+      solution.addFrame(new Frame([], [j, j + 1]));
+
+      while (j >=0 && elements[j] > key) {
+        solution.addFrame(new Frame([], [j, j + 1]));
+        elements[j + 1] = elements[j];
+        solution.addFrame(new Frame([j, j + 1], [j, j + 1]));
+        j = j - 1;
+      }
+  // changing the final value don't affect the animation
+      elements[j + 1] = key;
+    }
+
+    return solution;
+  }
 }

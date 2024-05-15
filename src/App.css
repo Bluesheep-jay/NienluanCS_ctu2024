@@ -1,8 +1,16 @@
-@media only screen and (max-width: 1000px) {
-  #algos {
-    display: none;
-  }
-}
 body{
     overflow: hidden;
+}
+
+.app-container{
+  display: flex;
+}
+#sorting-part{
+
+}
+
+#algo-part{
+  background: #fee440;
+  width: 400px;
+  margin-right: 5px;
 }

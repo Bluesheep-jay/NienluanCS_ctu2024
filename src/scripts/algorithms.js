@@ -1,23 +1,21 @@
+import { sort } from "./mergeSortAnimation";
+import $ from "jquery";
+
 export class Frame {
   constructor(e, h) {
-    // e là mảng các ptu, h là mảng chỉ số để làm nổi bật
-    this.elements = [];
-    this.highlights = [];
-    this.information = "";
-
-    // nếu e, h == undefined hoặc [] thì elements = highlights = []
-    // Ngược lại
+    this.elements = []; // e là mảng các ptu,
+    this.highlights = []; //h là mảng chỉ số để làm nổi bật
+    // nếu e, h == undefined hoặc [] thì elements = highlights = [],
     if (e != undefined && e.length) this.elements = e;
     if (h != undefined && h.length) this.highlights = h;
   }
 }
-
 class Animation {
   constructor() {
     this.frames = [];
   }
   addFrame(frame) {
-    const temp = JSON.parse(JSON.stringify(frame)); // Only store a copy
+    const temp = JSON.parse(JSON.stringify(frame));
     this.frames.push(temp);
   }
   getFrames() {
@@ -26,8 +24,6 @@ class Animation {
 }
 
 export default class Algorithms {
-  // nhận vào (mảng e, hướng sắp order: asc, desc)
-  // eg: mảng e = [5,3,8,4,6]
   static bubble(e) {
     let elements = e; // mảng truyền vào
     let solution = new Animation(); //để lưu trữ các bước sắp xếp.
@@ -74,23 +70,25 @@ export default class Algorithms {
   static insertion(e) {
     let elements = e;
     let solution = new Animation();
-
     for (let i = 1; i < elements.length; ++i) {
       let key = elements[i];
       let j = i - 1;
-
       solution.addFrame(new Frame([], [j, j + 1]));
-
-      while (j >=0 && elements[j] > key) {
+      while (j >= 0 && elements[j] > key) {
         solution.addFrame(new Frame([], [j, j + 1]));
         elements[j + 1] = elements[j];
         solution.addFrame(new Frame([j, j + 1], [j, j + 1]));
         j = j - 1;
       }
-  // changing the final value don't affect the animation
       elements[j + 1] = key;
     }
-
     return solution;
   }
+
+  static merge() {
+    let $array = $(".array-container");
+    sort($array[0]);
+  }
+
+  static quick() {}
 }

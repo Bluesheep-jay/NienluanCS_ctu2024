@@ -7,6 +7,8 @@ export function resetPositionCss() {
     bar.style.left = "";
     bar.style.top = "";
   });
+  $(".bar").removeClass("sel-sorted");
+
 }
 
 /// --- Generate Array Bar --- ///
@@ -18,19 +20,23 @@ export const generateArrayBar = (totalElements, setArrayBar) => {
   const newArray = Array.from({ length: totalElements }, () =>
     randomInt(5, 500)
   );
-  setArrayBar(newArray);
+  setArrayBar(newArray);    
 };
 
 export function disabledStopBtn(what = true) {
   const stopBtn = document.getElementById("stop-btn");
   $(".form-range").attr("disabled", true);
-  $(".selectSort").attr("disabled", true).addClass("disabled").removeClass("selectSortHover")
-  $("#sort-btn").attr("disabled", true).removeClass("btn-hover")
+  $(".selectSort")
+    .attr("disabled", true)
+    .addClass("disabled")
+    .removeClass("selectSortHover");
+  $("#sort-btn").attr("disabled", true).removeClass("btn-hover");
+  
   stopBtn.innerHTML = "Resume";
   $("#stop-btn")
-      .attr("disabled", false)
-      .removeClass("disabled")
-      .addClass("btn-hover resumeColor")
+    .attr("disabled", false)
+    .removeClass("disabled")
+    .addClass("btn-hover resumeColor");
   /// --when runAlgo everything is disabled except reset, restart, stop (btn)
   if (what == true) {
     stopBtn.innerHTML = "Stop";
@@ -38,15 +44,17 @@ export function disabledStopBtn(what = true) {
       .attr("disabled", false)
       .removeClass("disabled resumeColor")
       .addClass("btn-hover");
-  } 
+  }
 }
 
 export function disabledResetBtn() {
   $(".form-range").attr("disabled", false);
-  $(".selectSort").attr("disabled", false).removeClass("disabled").addClass("selectSortHover")
+  $(".selectSort")
+    .attr("disabled", false)
+    .removeClass("disabled")
+    .addClass("selectSortHover");
   $("#sort-btn").attr("disabled", false).addClass("btn-hover");
   const stopBtn = document.getElementById("stop-btn");
   stopBtn.innerHTML = "Stop";
-  $("#stop-btn").attr("disabled", true).removeClass("btn-hover resumeColor")
+  $("#stop-btn").attr("disabled", true).removeClass("btn-hover resumeColor");
 }
-
